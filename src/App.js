@@ -1,14 +1,12 @@
 import React from "react";
 import { Container, Stack } from "@mui/material";
 
-import Categories from "./components/Categories";
-import Collections from "./components/Collections";
+import Home from "./components/Home";
 
 const App = () => {
   return (
     <Container maxWidth="lg">
-      <Categories></Categories>
-      <Collections></Collections>
+      <Home />
     </Container>
   );
 };
