@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Container, Stack } from "@mui/material";
 
-import CategoriesCard from "./components/CategoriesCard";
-import mova from "./api/mova";
+import Categories from "./components/Categories";
+
 import CollectionsCard from "./components/CollectionsCard";
+import mova from "./api/mova";
 
 const App = () => {
-  const [categories, setCategories] = useState([]);
   const [collections, setCollections] = useState([]);
 
-  const getCategories = async () => {
-    const result = await mova.get("./categories");
-
-    setCategories(result.data);
-  };
   const getCollections = async () => {
     const result = await mova.get("./collections");
 
@@ -21,22 +16,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    getCategories();
     getCollections();
   }, []);
 
-  const renderCards = () => {
-    return categories.map(({ displayName, categoryId, parentId }) => {
-      if (parentId === "root")
-        return (
-          <CategoriesCard
-            displayName={displayName}
-            categoryId={categoryId}
-            key={categoryId}
-          />
-        );
-    });
-  };
   const renderCards2 = () => {
     return collections.map(({ displayName, collectionId }) => {
       return (
@@ -51,9 +33,7 @@ const App = () => {
 
   return (
     <Container maxWidth="lg">
-      <Stack direction="row" justifyContent="center" spacing={4}>
-        {renderCards()}
-      </Stack>
+      <Categories></Categories>
 
       <Stack direction="row" justifyContent="center" spacing={4}>
         {renderCards2()}

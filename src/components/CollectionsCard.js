@@ -17,7 +17,7 @@ const CollectionsCard = ({ displayName, collectionId }) => {
         component="img"
         // height="140"
         image={img[collectionId]}
-        alt="green iguana"
+        alt={collectionId}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
