@@ -24,7 +24,7 @@ const Collections = () => {
     return collections.map(({ displayName, collectionId }) => {
       return (
         <Link
-          to="/products"
+          to={"/collection/" + collectionId}
           key={collectionId}
           onClick={() => setProductsType({ collection: collectionId })}
         >

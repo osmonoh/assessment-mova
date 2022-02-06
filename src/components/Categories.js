@@ -25,7 +25,7 @@ const Categories = () => {
       if (parentId === "root")
         return (
           <Link
-            to="/products"
+            to={"/category/" + categoryId}
             key={categoryId}
             onClick={() => setProductsType({ category: categoryId })}
           >
