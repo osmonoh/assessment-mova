@@ -1,27 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { MyContext } from "../context/MyContext";
 import mova from "../api/mova";
 
 const Products = () => {
+  const { productsType } = useContext(MyContext);
+
   const [products, setProducts] = useState([]);
 
-  const getProducts = async (type, value) => {
+  const getProducts = async (type) => {
     const result = await mova.get("./items", {
-      params: { [type]: value },
+      params: type,
     });
 
     setProducts(result.data);
   };
 
   useEffect(() => {
-    getProducts("category", "men");
-  }, []);
+    getProducts(productsType);
+  }, [productsType]);
 
   const renderCards = () => {
     return products.map((item) => {
       return (
         <p key={item.itemId}>
           {item.displayName}
-          <span> - {item.collectionId}</span>
+          <span>
+            {" "}
+            - {item.categoryId} - {item.collectionId}
+          </span>
         </p>
       );
     });

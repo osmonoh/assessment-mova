@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { MyContext } from "../context/MyContext";
+import mova from "../api/mova";
 
 import CategoriesCard from "./CategoriesCard";
 
-import mova from "../api/mova";
-
-import { Container, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 
 const Categories = () => {
+  const { setProductsType } = useContext(MyContext);
   const [categories, setCategories] = useState([]);
 
   const getCategories = async () => {
     const result = await mova.get("./categories");
-
     setCategories(result.data);
   };
 
@@ -23,11 +24,13 @@ const Categories = () => {
     return categories.map(({ displayName, categoryId, parentId }) => {
       if (parentId === "root")
         return (
-          <CategoriesCard
-            displayName={displayName}
-            categoryId={categoryId}
+          <Link
+            to="/products"
             key={categoryId}
-          />
+            onClick={() => setProductsType({ category: categoryId })}
+          >
+            <CategoriesCard displayName={displayName} categoryId={categoryId} />
+          </Link>
         );
     });
   };
