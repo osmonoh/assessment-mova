@@ -27,7 +27,13 @@ const Categories = () => {
           <Link
             to={"/category/" + categoryId}
             key={categoryId}
-            onClick={() => setProductsType({ category: categoryId })}
+            onClick={() => {
+              sessionStorage.setItem(
+                "productsType",
+                JSON.stringify({ category: categoryId })
+              );
+              setProductsType({ category: categoryId });
+            }}
           >
             <CategoriesCard displayName={displayName} categoryId={categoryId} />
           </Link>

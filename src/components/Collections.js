@@ -26,7 +26,13 @@ const Collections = () => {
         <Link
           to={"/collection/" + collectionId}
           key={collectionId}
-          onClick={() => setProductsType({ collection: collectionId })}
+          onClick={() => {
+            sessionStorage.setItem(
+              "productsType",
+              JSON.stringify({ collection: collectionId })
+            );
+            setProductsType({ collection: collectionId });
+          }}
         >
           <CollectionsCard
             displayName={displayName}

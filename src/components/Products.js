@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../context/MyContext";
 import mova from "../api/mova";
 
+import ProductsFilterBtn from "./ProductsFilterBtn";
 import ProductsCard from "./ProductsCard";
 
 import Grid from "@mui/material/Grid";
@@ -9,7 +10,9 @@ import { Box } from "@mui/system";
 
 const Products = () => {
   const { productsType } = useContext(MyContext);
+  const { tagsFilter, setTagsFilter } = useContext(MyContext);
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const getProducts = async (type) => {
     const result = await mova.get("./items", {
@@ -22,8 +25,25 @@ const Products = () => {
     getProducts(productsType);
   }, [productsType]);
 
+  useEffect(() => {
+    if (tagsFilter.length) {
+      setFilteredProducts(
+        products.filter((item) => tagsFilter.includes(item.tags[0]))
+      );
+    }
+  }, [tagsFilter]);
+
+  const renderFilterBtns = () => {
+    return [
+      ...new Set(products.reduce((acc, item) => acc.concat(item.tags), [])),
+    ].map((item, index) => {
+      return <ProductsFilterBtn key={index} tag={item} />;
+    });
+  };
+
   const renderCards = () => {
-    return products.map(
+    const productsArr = filteredProducts.length ? filteredProducts : products;
+    return productsArr.map(
       ({ itemId, picture, displayName, currentPrice, originalPrice, tags }) => {
         return (
           <ProductsCard
@@ -44,6 +64,9 @@ const Products = () => {
     <Box>
       <Grid container spacing={4}>
         {renderCards()}
+      </Grid>
+      <Grid container spacing={4}>
+        {renderFilterBtns()}
       </Grid>
     </Box>
   );
