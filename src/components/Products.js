@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../context/MyContext";
 import mova from "../api/mova";
 
+import ProductsCard from "./ProductsCard";
+
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/system";
 
@@ -22,14 +24,17 @@ const Products = () => {
 
   const renderCards = () => {
     return products.map(
-      ({ picture, displayName, currentPrice, originalPrice }) => {
+      ({ itemId, picture, displayName, currentPrice, originalPrice, tags }) => {
         return (
-          <Grid item xs={4}>
-            <img src={picture} alt={displayName} style={{ width: "100%" }} />
-            <p>{displayName}</p>
-            {/* <p>{originalPrice}</p> */}
-            <p>{currentPrice}</p>
-          </Grid>
+          <ProductsCard
+            key={itemId}
+            itemId={itemId}
+            picture={picture}
+            displayName={displayName}
+            currentPrice={currentPrice}
+            originalPrice={originalPrice}
+            tags={tags}
+          />
         );
       }
     );
