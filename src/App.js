@@ -4,6 +4,7 @@ import { Container, Stack } from "@mui/material";
 
 import Home from "./components/Home";
 import Products from "./components/Products";
+import ProductDetails from "./components/ProductDetails";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route exact path="/" element={<Home />} />
           <Route path="/category/:id" element={<Products />} />
           <Route path="/collection/:id" element={<Products />} />
+          <Route path="/item/:id" element={<ProductDetails />} />
         </Routes>
       </BrowserRouter>
     </Container>

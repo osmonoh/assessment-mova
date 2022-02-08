@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MyContext } from "./MyContext";
 
 const Context = ({ children }) => {
+  const [product, setProduct] = useState({});
   const [productsType, setProductsType] = useState(
     JSON.parse(sessionStorage.getItem("productsType")) || {}
   );
@@ -9,7 +10,14 @@ const Context = ({ children }) => {
 
   return (
     <MyContext.Provider
-      value={{ productsType, setProductsType, tagsFilter, setTagsFilter }}
+      value={{
+        product,
+        setProduct,
+        productsType,
+        setProductsType,
+        tagsFilter,
+        setTagsFilter,
+      }}
     >
       {children}
     </MyContext.Provider>

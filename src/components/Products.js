@@ -30,6 +30,8 @@ const Products = () => {
       setFilteredProducts(
         products.filter((item) => tagsFilter.includes(item.tags[0]))
       );
+    } else {
+      setFilteredProducts(products);
     }
   }, [tagsFilter]);
 
@@ -43,21 +45,29 @@ const Products = () => {
 
   const renderCards = () => {
     const productsArr = filteredProducts.length ? filteredProducts : products;
-    return productsArr.map(
-      ({ itemId, picture, displayName, currentPrice, originalPrice, tags }) => {
-        return (
-          <ProductsCard
-            key={itemId}
-            itemId={itemId}
-            picture={picture}
-            displayName={displayName}
-            currentPrice={currentPrice}
-            originalPrice={originalPrice}
-            tags={tags}
-          />
-        );
-      }
-    );
+    return productsArr.map((item) => {
+      const {
+        itemId,
+        picture,
+        displayName,
+        currentPrice,
+        originalPrice,
+        tags,
+      } = item;
+
+      return (
+        <ProductsCard
+          key={itemId}
+          item={item}
+          itemId={itemId}
+          picture={picture}
+          displayName={displayName}
+          currentPrice={currentPrice}
+          originalPrice={originalPrice}
+          tags={tags}
+        />
+      );
+    });
   };
 
   return (

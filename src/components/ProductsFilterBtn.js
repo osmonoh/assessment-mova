@@ -23,8 +23,6 @@ const ProductsFilterBtn = ({ tag }) => {
     }
   };
 
-  console.log(tagsFilter);
-
   return (
     <Grid
       item
