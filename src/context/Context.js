@@ -7,6 +7,7 @@ const Context = ({ children }) => {
     JSON.parse(sessionStorage.getItem("productsType")) || {}
   );
   const [tagsFilter, setTagsFilter] = useState([]);
+  const [inCart, setInCart] = useState([]);
 
   return (
     <MyContext.Provider
@@ -17,6 +18,8 @@ const Context = ({ children }) => {
         setProductsType,
         tagsFilter,
         setTagsFilter,
+        inCart,
+        setInCart,
       }}
     >
       {children}
